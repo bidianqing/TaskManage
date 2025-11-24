@@ -11,7 +11,7 @@ namespace TaskManage
 
     public class TaskService : ITaskService
     {
-        private readonly ConcurrentDictionary<string, (Task task, CancellationTokenSource token)> _runningTasks = new();
+        private ConcurrentDictionary<string, (Task task, CancellationTokenSource token)> _runningTasks = new();
 
         public void AddTask(int id, Task task, CancellationTokenSource cts)
         {
