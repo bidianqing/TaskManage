@@ -26,11 +26,21 @@ namespace TaskManage.Controllers
             var cts = new CancellationTokenSource();
             var task = Task.Run(async () =>
             {
+                int count = 0;
                 while (!cts.Token.IsCancellationRequested)
                 {
                     _logger.LogInformation($"{num}号任务执行");
 
                     await Task.Delay(1000);
+                    count++;
+
+                    // 任务完成后，break之前 发送一个集成消息到redis或者其他消息队列，由单独一个进程负责移除任务，并做后续处理（发送通知等）
+
+                    if (count >= 10)
+                    {
+                        _logger.LogInformation($"{num}号任务完成");
+                        break;
+                    }
                 }
             }, cts.Token);
             _taskService.AddTask(num, task, cts);

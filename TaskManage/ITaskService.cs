@@ -30,7 +30,12 @@ namespace TaskManage
             {
                 taskInfo.token.Cancel();
 
-                await Task.WhenAll(taskInfo.task);
+                if (!taskInfo.task.IsCompleted)
+                {
+                    await Task.WhenAny(taskInfo.task);
+                }
+
+                taskInfo.task.Dispose();
 
                 taskInfo.token.Dispose();
             }
