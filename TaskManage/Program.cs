@@ -3,10 +3,10 @@ using TaskManage;
 ThreadPool.GetMinThreads(out int minWorkerThreads, out int minCompletionPortThreads);
 ThreadPool.GetMaxThreads(out int maxWorkerThreads, out int maxCompletionPortThreads);
 
-Console.WriteLine($"×îĞ¡¹¤×÷Ïß³ÌÊı: {minWorkerThreads}");
-Console.WriteLine($"×îĞ¡I/OÍê³É¶Ë¿ÚÏß³ÌÊı: {minCompletionPortThreads}");
-Console.WriteLine($"×î´ó¹¤×÷Ïß³ÌÊı: {maxWorkerThreads}");
-Console.WriteLine($"×î´óI/OÍê³É¶Ë¿ÚÏß³ÌÊı: {maxCompletionPortThreads}");
+Console.WriteLine($"æœ€å°å·¥ä½œçº¿ç¨‹æ•°: {minWorkerThreads}");
+Console.WriteLine($"æœ€å°I/Oå®Œæˆç«¯å£çº¿ç¨‹æ•°: {minCompletionPortThreads}");
+Console.WriteLine($"æœ€å¤§å·¥ä½œçº¿ç¨‹æ•°: {maxWorkerThreads}");
+Console.WriteLine($"æœ€å¤§I/Oå®Œæˆç«¯å£çº¿ç¨‹æ•°: {maxCompletionPortThreads}");
 
 var builder = WebApplication.CreateBuilder(args);
 

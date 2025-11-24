@@ -28,7 +28,7 @@ namespace TaskManage.Controllers
             {
                 while (!cts.Token.IsCancellationRequested)
                 {
-                    _logger.LogInformation($"{num}∫≈»ŒŒÒ÷¥––");
+                    _logger.LogInformation($"{num}Âè∑‰ªªÂä°ÊâßË°å");
 
                     await Task.Delay(1000);
                 }
