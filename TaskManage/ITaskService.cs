@@ -26,11 +26,6 @@ namespace TaskManage
 
         public async Task RemoveTask(int id)
         {
-            if (!_runningTasks.ContainsKey(id.ToString()))
-            {
-                return;
-            }
-
             if (_runningTasks.TryRemove(id.ToString(), out var taskInfo))
             {
                 taskInfo.token.Cancel();
