@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace TaskManage.Controllers
 {
@@ -21,7 +22,7 @@ namespace TaskManage.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get(int num)
+        public async Task<IEnumerable<WeatherForecast>> Get(int num)
         {
             var cts = new CancellationTokenSource();
             var task = Task.Run(async () =>
@@ -43,7 +44,8 @@ namespace TaskManage.Controllers
                     }
                 }
             }, cts.Token);
-            _taskService.AddTask(num, task, cts);
+
+            await _taskService.AddTask(num, task, cts);
 
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

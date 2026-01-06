@@ -4,7 +4,7 @@ namespace TaskManage
 {
     public interface ITaskService
     {
-        void AddTask(int id, Task task, CancellationTokenSource cts);
+        Task AddTask(int id, Task task, CancellationTokenSource cts);
 
         Task RemoveTask(int id);
     }
@@ -13,11 +13,22 @@ namespace TaskManage
     {
         private ConcurrentDictionary<string, (Task task, CancellationTokenSource token)> _runningTasks = new();
 
-        public void AddTask(int id, Task task, CancellationTokenSource cts)
+        public async Task AddTask(int id, Task task, CancellationTokenSource cts)
         {
             if (_runningTasks.ContainsKey(id.ToString()))
             {
-                return;
+                var taskInfo = _runningTasks[id.ToString()];
+
+                taskInfo.token.Cancel();
+
+                if (!taskInfo.task.IsCompleted)
+                {
+                    await Task.WhenAny(taskInfo.task);
+                }
+
+                taskInfo.task.Dispose();
+
+                taskInfo.token.Dispose();
             }
 
             _runningTasks[id.ToString()] = (task, cts);
